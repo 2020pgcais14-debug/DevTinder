@@ -2,31 +2,19 @@ console.log("Starting a new project");
 
 const express = require("express");
 const app =express();
-
-//This will match all the GET method api calls to /user
-app.get("/user/:userId/:name/:password", (req, res)=>{
-    console.log(req.query);
-    console.log(req.params);
+app.use("/user",(req, res, next)=>{
+    //Route Handler
+    console.log("Handling the route user 1!!")
+    next();
+    //res.send("Route handler 1")
     
-    res.send({firstName:"Abhishek", lastName:"Kumar"})
+},
+  (req, res)=>{
+    console.log("Handling the route user 2!!")
+    res.send("Route handler 2")
 
-});
-// app.post("/user",(req,res)=>{
-//     res.send("Data successfully saved to Database")
-// })
-
-
-//This will match all the HTTP method API calls to /test
-// app.use("/test",(req,res)=>{
-//     res.send("Hello from Server");
-// });
-// app.use("/dashboard",(req,res)=>{
-//     res.send("Hello from dashboard")
-// });
-// app.use("/",(req,res)=>{
-
-//     res.send("Hello Mr. Abhishek")
-// });
+  }
+);
 app.listen(3000,()=>{
     console.log("Server is succesfully listening on port 3000.......");
 });
